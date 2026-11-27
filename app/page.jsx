@@ -6,9 +6,13 @@ import {
   projects,
   skills,
   credentials,
+  availability,
+  services,
+  process,
 } from "@/data/profile";
 
 const nav = [
+  ["Services", "#services"],
   ["About", "#about"],
   ["Experience", "#experience"],
   ["Projects", "#projects"],
@@ -58,7 +62,38 @@ const icons = {
     </>
   ),
   menu: <path d="M4 7h16M4 12h16M4 17h16" />,
+  calendar: (
+    <>
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <path d="M3 10h18M8 3v4M16 3v4" />
+    </>
+  ),
+  compass: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="m15.5 8.5-2 5-5 2 2-5 5-2Z" />
+    </>
+  ),
+  bolt: <path d="M13 3 5 13.5h6L10 21l8-10.5h-6L13 3Z" />,
+  shield: (
+    <>
+      <path d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6l-7-3Z" />
+      <path d="m9 12 2 2 4-4" />
+    </>
+  ),
+  layers: <path d="m12 3 9 5-9 5-9-5 9-5ZM3 13l9 5 9-5M3 17.5l9 5 9-5" />,
+  briefcase: (
+    <>
+      <rect x="3" y="7" width="18" height="13" rx="2" />
+      <path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18" />
+    </>
+  ),
 };
+
+// Calendly link with branding colours and the cookie banner hidden.
+const calendlyEmbed = profile.calendly
+  ? `${profile.calendly}${profile.calendly.includes("?") ? "&" : "?"}hide_gdpr_banner=1&primary_color=3346d3`
+  : "";
 
 function Icon({ name, className = "h-4 w-4" }) {
   return (
@@ -146,11 +181,20 @@ export default function Home() {
             <a
               href={profile.resume}
               download
-              className="hidden items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-medium text-white transition hover:bg-brand sm:inline-flex"
+              className="hidden items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium text-ink transition hover:border-ink/30 lg:inline-flex"
             >
               <Icon name="download" className="h-3.5 w-3.5" />
               Resume
             </a>
+            {profile.calendly && (
+              <a
+                href="#book"
+                className="hidden items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-medium text-white transition hover:bg-brand sm:inline-flex"
+              >
+                <Icon name="calendar" className="h-3.5 w-3.5" />
+                Book a call
+              </a>
+            )}
 
             {/* Mobile menu (no JS) */}
             <details className="group relative md:hidden">
@@ -173,6 +217,14 @@ export default function Home() {
                 >
                   <Icon name="download" className="h-3.5 w-3.5" /> Resume
                 </a>
+                {profile.calendly && (
+                  <a
+                    href="#book"
+                    className="mt-1 flex items-center gap-2 rounded-lg border border-line px-3 py-2 text-sm font-medium"
+                  >
+                    <Icon name="calendar" className="h-3.5 w-3.5" /> Book a call
+                  </a>
+                )}
               </div>
             </details>
           </div>
@@ -217,11 +269,20 @@ export default function Home() {
               </p>
 
               <div className="animate-rise mt-10 flex flex-wrap gap-3" style={{ animationDelay: "240ms" }}>
-                <a href="#projects" className={btnPrimary}>
-                  View my work <Icon name="arrow" />
+                {profile.calendly ? (
+                  <a href="#book" className={btnPrimary}>
+                    <Icon name="calendar" /> Book a free intro call
+                  </a>
+                ) : (
+                  <a href="#contact" className={btnPrimary}>
+                    Get in touch <Icon name="arrow" />
+                  </a>
+                )}
+                <a href="#services" className={btnSecondary}>
+                  Consulting services
                 </a>
-                <a href="#contact" className={btnSecondary}>
-                  Get in touch
+                <a href="#projects" className={btnSecondary}>
+                  View my work
                 </a>
               </div>
             </div>
@@ -253,6 +314,10 @@ export default function Home() {
                   <div className="flex items-start gap-3">
                     <Icon name="spark" className="mt-0.5 h-4 w-4 shrink-0 text-subtle" />
                     <dd>LLM evaluation · RAG · Agentic AI</dd>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Icon name="briefcase" className="mt-0.5 h-4 w-4 shrink-0 text-subtle" />
+                    <dd>Open to FDE roles &amp; AI consulting</dd>
                   </div>
                 </dl>
                 <div className="mt-6 flex gap-2">
@@ -295,12 +360,102 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Consulting services */}
+        <Section
+          id="services"
+          index="01"
+          eyebrow="Work with me"
+          title="AI consulting and Forward Deployed Engineering"
+          intro="Whether you need a hands-on AI consultant for a focused engagement or a Forward Deployed Engineer on your team, I work the same way: close to the customer, accountable for the outcome."
+        >
+          <div className="grid gap-5 md:grid-cols-2">
+            {availability.map((a, i) => (
+              <article
+                key={a.title}
+                className={`flex flex-col rounded-3xl border p-7 md:p-9 ${
+                  i === 0
+                    ? "border-ink bg-ink text-white"
+                    : "border-line bg-gradient-to-br from-brand-soft via-surface to-surface"
+                }`}
+              >
+                <span
+                  className={`inline-flex w-fit items-center gap-2 rounded-full px-2.5 py-1 text-xs font-medium ${
+                    i === 0 ? "bg-white/10 text-white" : "bg-accent/10 text-accent"
+                  }`}
+                >
+                  <span className={`h-1.5 w-1.5 rounded-full ${i === 0 ? "bg-emerald-400" : "bg-accent"}`} />
+                  {a.kind}
+                </span>
+                <h3 className="mt-5 text-2xl font-semibold tracking-tight">{a.title}</h3>
+                <p className={`mt-3 leading-relaxed ${i === 0 ? "text-slate-300" : "text-muted"}`}>{a.text}</p>
+                <ul className="mt-6 space-y-2.5 text-[15px]">
+                  {a.points.map((pt) => (
+                    <li key={pt} className="flex gap-3">
+                      <span
+                        className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
+                          i === 0 ? "bg-white/10 text-white" : "bg-brand-soft text-brand"
+                        }`}
+                      >
+                        <Icon name="check" className="h-3 w-3" />
+                      </span>
+                      <span className={i === 0 ? "text-slate-200" : "text-ink-soft"}>{pt}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-auto pt-8">
+                  <a
+                    href={profile.calendly ? "#book" : "#contact"}
+                    className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition ${
+                      i === 0 ? "bg-white text-ink hover:bg-indigo-100" : "bg-ink text-white hover:bg-brand"
+                    }`}
+                  >
+                    {i === 0 ? "Talk about a role" : "Discuss a project"} <Icon name="arrow" />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <h3 className="mt-20 text-xl font-semibold tracking-tight">Consulting services</h3>
+          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {services.map((s) => (
+              <article
+                key={s.title}
+                className="flex flex-col rounded-2xl border border-line bg-surface p-6 transition hover:-translate-y-0.5 hover:border-ink/20 hover:shadow-lg hover:shadow-ink/[0.04]"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft text-brand">
+                  <Icon name={s.icon} className="h-5 w-5" />
+                </span>
+                <h4 className="mt-5 font-semibold tracking-tight">{s.title}</h4>
+                <p className="mt-2 text-[15px] leading-relaxed text-muted">{s.text}</p>
+                <div className="mt-auto pt-6">
+                  <p className="border-t border-line pt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-subtle">
+                    You get
+                  </p>
+                  <p className="mt-1 text-sm font-medium text-ink-soft">{s.deliverable}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <h3 className="mt-20 text-xl font-semibold tracking-tight">How an engagement runs</h3>
+          <ol className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+            {process.map((p, i) => (
+              <li key={p.step} className="bg-canvas p-6">
+                <span className="font-mono text-xs text-brand">{String(i + 1).padStart(2, "0")}</span>
+                <p className="mt-3 font-semibold">{p.step}</p>
+                <p className="mt-1.5 text-[15px] leading-relaxed text-muted">{p.text}</p>
+              </li>
+            ))}
+          </ol>
+        </Section>
+
         {/* About + FDE journey */}
         <Section
           id="about"
-          index="01"
+          index="02"
           eyebrow="About"
-          title="Engineer, leader, and soon a Forward Deployed Engineer"
+          title="Engineer, leader, consultant and Forward Deployed Engineer"
           intro={fdeJourney.intro}
           tinted
         >
@@ -319,7 +474,7 @@ export default function Home() {
         </Section>
 
         {/* Experience */}
-        <Section id="experience" index="02" eyebrow="Experience" title="Where I've worked">
+        <Section id="experience" index="03" eyebrow="Experience" title="Where I've worked">
           <ol className="border-t border-line">
             {experience.map((job, i) => (
               <li
@@ -354,7 +509,7 @@ export default function Home() {
         </Section>
 
         {/* Projects */}
-        <Section id="projects" index="03" eyebrow="Projects" title="Selected work" tinted>
+        <Section id="projects" index="04" eyebrow="Projects" title="Selected work" tinted>
           <div className="grid gap-6 md:grid-cols-2">
             {projects.map((p, i) => {
               const featured = i === 0;
@@ -436,7 +591,7 @@ export default function Home() {
         </Section>
 
         {/* Skills + credentials */}
-        <Section id="skills" index="04" eyebrow="Skills" title="What I bring">
+        <Section id="skills" index="05" eyebrow="Skills" title="What I bring">
           <div className="grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
             {skills.map((s) => (
               <div key={s.group} className="bg-surface p-7">
@@ -473,6 +628,56 @@ export default function Home() {
           </div>
         </Section>
 
+        {/* Book a call (Calendly) */}
+        {profile.calendly && (
+          <section id="book" className="border-t border-line bg-surface">
+            <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 md:py-28 lg:grid-cols-12">
+              <div className="lg:col-span-4">
+                <Eyebrow index="06">Book a call</Eyebrow>
+                <h2 className="mt-5 text-3xl font-semibold tracking-tight text-balance md:text-4xl">
+                  Pick a time that works for you
+                </h2>
+                <p className="mt-4 text-lg leading-relaxed text-muted">
+                  A free 30-minute intro call. Bring a hiring need or an AI problem, and we'll work out whether I'm
+                  the right fit.
+                </p>
+                <ul className="mt-8 space-y-3 text-[15px]">
+                  {[
+                    "FDE and applied-AI role conversations",
+                    "Scoping an AI pilot or consulting engagement",
+                    "Reviewing an existing RAG, agent or eval setup",
+                  ].map((t) => (
+                    <li key={t} className="flex gap-3">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-soft text-brand">
+                        <Icon name="check" className="h-3 w-3" />
+                      </span>
+                      <span className="text-ink-soft">{t}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href={profile.calendly}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand-strong"
+                >
+                  Open in Calendly <Icon name="arrowUpRight" className="h-3.5 w-3.5" />
+                </a>
+              </div>
+              <div className="lg:col-span-8">
+                <div className="overflow-hidden rounded-3xl border border-line bg-canvas shadow-xl shadow-ink/[0.04]">
+                  <iframe
+                    src={calendlyEmbed}
+                    title={`Book a call with ${profile.shortName}`}
+                    loading="lazy"
+                    className="h-[700px] w-full"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Contact */}
         <section id="contact" className="relative overflow-hidden bg-ink text-white">
           <div className="bg-grid-dark pointer-events-none absolute inset-0" />
@@ -480,7 +685,7 @@ export default function Home() {
           <div className="relative mx-auto max-w-6xl px-6 py-28 md:py-36">
             <div className="mx-auto max-w-3xl text-center">
               <div className="flex justify-center">
-                <Eyebrow index="05" dark>
+                <Eyebrow index={profile.calendly ? "07" : "06"} dark>
                   Contact
                 </Eyebrow>
               </div>
@@ -488,10 +693,18 @@ export default function Home() {
                 Let's build something that ships.
               </h2>
               <p className="mx-auto mt-5 max-w-xl text-lg text-slate-300">
-                Open to Forward Deployed Engineering and applied-AI roles. The fastest way to reach me is email or
-                LinkedIn.
+                Open to Forward Deployed Engineering roles and AI consulting engagements. Book a call, or reach me by
+                email or LinkedIn.
               </p>
               <div className="mt-11 flex flex-wrap justify-center gap-3">
+                {profile.calendly && (
+                  <a
+                    href="#book"
+                    className="inline-flex items-center gap-2 rounded-full bg-brand px-5 py-3 text-sm font-medium text-white transition hover:bg-brand-strong"
+                  >
+                    <Icon name="calendar" /> Book a call
+                  </a>
+                )}
                 <a
                   href={`mailto:${profile.email}`}
                   className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-ink transition hover:bg-indigo-100"

@@ -7,16 +7,71 @@ export const profile = {
   title: "Principal Engineer, Data & AI",
   company: "Red Hat (an IBM company)",
   location: "Bengaluru, India",
-  tagline: "Forward Deployed Engineer in training",
+  tagline: "Open to FDE roles · Available for AI consulting",
   headline:
-    "I turn messy business workflows into reliable AI systems that actually ship.",
+    "I help teams turn messy business workflows into AI systems that actually ship.",
   summary:
-    "Principal Engineer and engineering lead with 10+ years building cloud-native platforms, APIs, analytics and AI-enabled products. I work across Python, distributed systems, Kubernetes and AWS/Azure, with a deep focus on LLM evaluation, RAG pipelines, agentic AI and AI governance.",
+    "Principal Engineer and engineering lead with 10+ years building cloud-native platforms, APIs, analytics and AI-enabled products. I partner with companies as an AI consultant and Forward Deployed Engineer: from customer discovery and problem framing to RAG pipelines, agentic workflows, LLM evaluation and production delivery on Kubernetes and AWS/Azure.",
   email: "mohitbathla042@gmail.com",
   linkedin: "https://www.linkedin.com/in/mohit-bathla-124b64110",
   github: "https://github.com/bathlamohit",
   resume: "/Mohit_Bathla_Resume.pdf",
+  // Your Calendly scheduling link (e.g. https://calendly.com/your-name/30min).
+  // Leave it empty ("") to hide every "Book a call" button and the booking widget.
+  calendly: "https://calendly.com/mohitbathla/30min",
 };
+
+// What you're open to right now. Shown in the "Work with me" section.
+export const availability = [
+  {
+    title: "Forward Deployed Engineer roles",
+    kind: "Full-time",
+    text: "FDE, Solutions Engineer and applied-AI roles where I sit with customers, own the problem end to end and ship production AI systems.",
+    points: ["Customer-facing AI delivery", "Senior / Staff / Principal level", "Remote or Bengaluru, open to travel"],
+  },
+  {
+    title: "AI consulting engagements",
+    kind: "Contract · Advisory",
+    text: "Short, outcome-focused engagements for teams that want to move from AI idea to a working, evaluated system without a long hiring cycle.",
+    points: ["Fixed-scope pilots and audits", "Hands-on build, not just slides", "Clear handover to your team"],
+  },
+];
+
+// Consulting services. Edit freely.
+export const services = [
+  {
+    icon: "compass",
+    title: "AI strategy & discovery",
+    text: "Workshops with your business and tech teams to map workflows, find the use cases worth automating and define success metrics before any code is written.",
+    deliverable: "Prioritised use-case roadmap",
+  },
+  {
+    icon: "bolt",
+    title: "RAG & agent prototypes",
+    text: "A working pilot on your own data in weeks: retrieval pipelines, LangGraph agents, tool use and a UI your stakeholders can actually try.",
+    deliverable: "Deployed pilot + architecture doc",
+  },
+  {
+    icon: "shield",
+    title: "LLM evaluation & governance",
+    text: "Measure hallucination, grounding, bias and completeness with deterministic evals, and set up guardrails, audit trails and EU AI Act risk classification.",
+    deliverable: "Eval suite + governance report",
+  },
+  {
+    icon: "layers",
+    title: "Production hardening",
+    text: "Take a promising prototype to production: APIs, Kubernetes on AWS/Azure, observability, cost control, CI/CD and team enablement.",
+    deliverable: "Production-ready system + handover",
+  },
+];
+
+// How an engagement runs (FDE style).
+export const process = [
+  { step: "Discover", text: "Sit with the people doing the work. Understand the workflow, data and constraints." },
+  { step: "Frame", text: "Turn ambiguity into a scoped problem with measurable success criteria." },
+  { step: "Prototype", text: "Ship a working version fast and iterate on real feedback and evals." },
+  { step: "Deliver", text: "Harden for production, document, and hand over to your team." },
+];
 
 export const stats = [
   { value: "10+", label: "Years engineering" },
