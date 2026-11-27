@@ -1,8 +1,9 @@
-import { Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/data/profile";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 export const metadata = {
   title: `${profile.shortName} — ${profile.title}`,
@@ -14,9 +15,13 @@ export const metadata = {
   },
 };
 
+export const viewport = {
+  themeColor: "#fafaf8",
+};
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>{children}</body>
     </html>
   );
